@@ -16,8 +16,22 @@ class Currency(models.Model):
     numeric_code = models.IntegerField(unique=True, db_index=True, help_text='ISO 4217. It is a three-digit numeric currency code. For example: 840')
     symbol = models.CharField(max_length=5, blank=True, help_text='A currency symbol. For example: "$"')
     is_active = models.BooleanField(default=True)
+    description = models.TextField()
 
     def __str__(self):
         return self.code
+    
+    @property
+    def information(self):
+        '''
+        self - <class 'Currency'> - object of this class
+        '''
+        information = f'''*Currency {self.name} ({self.international_designation})*:
+    •	*International code:* {self.code};
+    •	*Name:* {self.name};
+    •	*International designation:* {self.international_designation};
+    •	*Country:* {self.country}
+    •	*Currency name options:* {self.currency_name_options}'''
+        return information
     
 
